@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:taskjournal/pages/todo.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const Taskjournal());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class Taskjournal extends StatelessWidget {
+  const Taskjournal({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Taskjournal',
       themeMode: ThemeMode.dark,
       darkTheme: ThemeData(
         // This is the theme of your application.
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
             seedColor: const Color(0xff8d00b0), brightness: Brightness.dark),
         useMaterial3: true,
       ),
-      home: const TodoPage(title: 'Taskjournal'),
+      home: const TodoPage(),
     );
   }
 }
