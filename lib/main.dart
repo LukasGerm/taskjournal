@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:taskjournal/pages/todo.dart';
+import 'package:taskjournal/pages/initializer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const Taskjournal());
 }
 
@@ -36,7 +40,7 @@ class Taskjournal extends StatelessWidget {
             seedColor: const Color(0xff8d00b0), brightness: Brightness.dark),
         useMaterial3: true,
       ),
-      home: const TodoPage(),
+      home: const InitializerPage(),
     );
   }
 }
