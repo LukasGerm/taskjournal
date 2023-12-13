@@ -530,6 +530,11 @@
   resolved "https://registry.yarnpkg.com/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.9.0.tgz#4ea610e0c40a07a8afa2977cbf80507f41c2271c"
   integrity sha512-aPP5Q5AqNGuT0tnuEkK/g4mnt3ZhheiXrDIiSVIHN9mcN21OyXDVbEMqmXPE7e2OplNLDkcvV+ZoGJa2ZImFgw==
 
+"@solidjs/router@^0.10.2":
+  version "0.10.2"
+  resolved "https://registry.yarnpkg.com/@solidjs/router/-/router-0.10.2.tgz#a79fb749bcb5a4325b5bf45a98912e53958c0b10"
+  integrity sha512-Yp4G9/+oNRTcTQ2snoxsVzo7HZqSm4L5GdaZDIfg24N7wMoRfanQ8aG5DcwEyA5YqFfOF8mjMW3iOCTaafmqdw==
+
 "@types/babel__core@^7.20.4":
   version "7.20.5"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.20.5.tgz#3df15f27ba85319caa07ba08d0721889bb39c017"
