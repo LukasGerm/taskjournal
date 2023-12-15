@@ -8,9 +8,9 @@ const useSubmitForm = () => {
   }>();
 
   const validate = (fields: {
-    email: string;
-    password: string;
-    confirmPassword: string;
+    email: FormDataEntryValue | null;
+    password: FormDataEntryValue | null;
+    confirmPassword: FormDataEntryValue | null;
   }) => {
     if (!fields.confirmPassword) {
       setErrors({ confirmPassword: "Confirm password is required" });
@@ -22,7 +22,7 @@ const useSubmitForm = () => {
       return false;
     }
     setErrors({ password: undefined });
-    if (fields.password.length < 6) {
+    if (fields.password && fields.password.toString().length < 6) {
       setErrors({ password: "Password must be at least 6 characters" });
       return false;
     }
@@ -37,17 +37,12 @@ const useSubmitForm = () => {
 
   const onSubmit = (e: Event) => {
     e.preventDefault();
-    const target = e.target as typeof e.target & {
-      email: { value: string };
-      password: { value: string };
-      confirmPassword: { value: string };
-    };
 
-    const email = target.email.value;
-    const password = target.password.value;
-    const confirmPassword = target.confirmPassword.value;
+    const formData = new FormData(e.target as HTMLFormElement);
 
-    console.log(target);
+    const email = formData.get("email");
+    const password = formData.get("password");
+    const confirmPassword = formData.get("confirmPassword");
 
     if (!validate({ email, password, confirmPassword })) {
       return;
