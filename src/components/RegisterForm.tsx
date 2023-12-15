@@ -1,6 +1,7 @@
 import { Component } from "solid-js";
 import { createStore } from "solid-js/store";
 import { useSignUp } from "./hooks/useSignUp";
+import { Input } from "./atoms/Input";
 
 const useSubmitForm = () => {
   const [errors, setErrors] = createStore<{
@@ -71,56 +72,31 @@ const RegisterForm: Component = () => {
       {errors.signUp && <p class="text-red-500 text-xs">{errors.signUp}</p>}
       <form onSubmit={onSubmit}>
         <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
-            E-Mail
-          </label>
-          <input
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="email"
-            type="email"
+          <Input
+            label="E-Mail"
             name="email"
+            type="email"
             placeholder="joe@test.com"
           />
         </div>
+
         <div class="mb-4">
-          <label
-            class="block text-gray-700 text-sm font-bold mb-2"
-            for="password"
-          >
-            Password
-          </label>
-          <input
-            class={
-              "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            }
-            id="password"
-            type="password"
+          <Input
+            label="Password"
             name="password"
+            type="password"
             placeholder="******************"
+            error={errors.password}
           />
-          {errors.password && (
-            <p class="text-red-500 text-xs italic">{errors.password}</p>
-          )}
         </div>
         <div class="mb-6">
-          <label
-            class="block text-gray-700 text-sm font-bold mb-2"
-            for="confirmPassword"
-          >
-            Confirm Password
-          </label>
-          <input
-            class={
-              "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            }
-            id="confirmPassword"
-            type="password"
+          <Input
+            label="Confirm Password"
             name="confirmPassword"
+            type="password"
             placeholder="******************"
+            error={errors.confirmPassword}
           />
-          {errors.confirmPassword && (
-            <p class="text-red-500 text-xs italic">{errors.confirmPassword}</p>
-          )}
         </div>
         <div class="flex items-center justify-between">
           <a
