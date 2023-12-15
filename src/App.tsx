@@ -1,5 +1,7 @@
+import { Match, Switch } from "solid-js";
 import { useObserveSession } from "./lib/user.selectors";
 import { Auth } from "./routes/Auth";
+import { Home } from "./routes/Home";
 // type ValidationFunction = ({ value }: { value: string }) => Promise<unknown>;
 
 /* declare module "solid-js" {
@@ -12,11 +14,19 @@ import { Auth } from "./routes/Auth";
 }*/
 
 export const App = () => {
-  const { authenticated } = useObserveSession();
-  // return auth router
-  if (!authenticated()) {
-    return <Auth />;
-  }
-  // return app router
-  return <></>;
+  const state = useObserveSession();
+
+  return (
+    <Switch fallback={<Auth />}>
+      <Match when={state.loading}>
+        <p>Loading...</p>
+      </Match>
+      <Match when={state.error}>
+        <p>ERROR</p>
+      </Match>
+      <Match when={state.data}>
+        <Home />
+      </Match>
+    </Switch>
+  );
 };

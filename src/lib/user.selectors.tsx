@@ -1,6 +1,6 @@
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { createSignal } from "solid-js";
-
+import { User, getAuth, onIdTokenChanged } from "firebase/auth";
+import { onCleanup } from "solid-js";
+import { createStore, reconcile } from "solid-js/store";
 export const useSession = () => {
   const auth = getAuth();
 
@@ -8,21 +8,40 @@ export const useSession = () => {
 };
 
 export const useObserveSession = () => {
-  const [authenticated, setAuthenticated] = createSignal<boolean | undefined>(
-    undefined
-  );
   const auth = getAuth();
-
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/auth.user
-      setAuthenticated(true);
-      // ...
-    } else {
-      setAuthenticated(false);
-    }
+  const [state, setState] = createStore<{
+    loading: boolean;
+    data: User | null;
+    error: Error | null;
+  }>({
+    loading: auth.currentUser === null,
+    data: auth.currentUser,
+    error: null,
   });
 
-  return { authenticated };
+  const unsub = onIdTokenChanged(
+    auth,
+    (authUser) => {
+      setState(
+        reconcile({
+          loading: false,
+          data: authUser,
+          error: null,
+        })
+      );
+    },
+    (error) => {
+      setState(
+        reconcile({
+          loading: false,
+          data: null,
+          error,
+        })
+      );
+    }
+  );
+
+  onCleanup(unsub);
+
+  return state;
 };

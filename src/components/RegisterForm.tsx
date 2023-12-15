@@ -1,11 +1,15 @@
 import { Component } from "solid-js";
 import { createStore } from "solid-js/store";
+import { useSignUp } from "./hooks/useSignUp";
 
 const useSubmitForm = () => {
   const [errors, setErrors] = createStore<{
     password?: string;
     confirmPassword?: string;
+    signUp?: string;
   }>();
+
+  const signUp = useSignUp();
 
   const validate = (fields: {
     email: FormDataEntryValue | null;
@@ -48,7 +52,12 @@ const useSubmitForm = () => {
       return;
     }
 
-    console.log(email, password, confirmPassword);
+    signUp({ email: email as string, password: password as string }).catch(
+      (e) => {
+        const errorMessage = e.message;
+        setErrors({ signUp: errorMessage });
+      }
+    );
   };
   return { onSubmit, errors };
 };
@@ -59,6 +68,9 @@ export const RegisterForm: Component = () => {
   return (
     <div class="flex gap-5 flex-col h-full">
       <h1 class="text-2xl">Register</h1>
+      {errors.signUp && (
+        <p class="text-red-500 text-xs italic">{errors.signUp}</p>
+      )}
       <form onSubmit={onSubmit}>
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
