@@ -62,15 +62,13 @@ const useSubmitForm = () => {
   return { onSubmit, errors };
 };
 
-export const RegisterForm: Component = () => {
+const RegisterForm: Component = () => {
   const { onSubmit, errors } = useSubmitForm();
 
   return (
-    <div class="flex gap-5 flex-col h-full">
+    <div class="flex gap-5 flex-col">
       <h1 class="text-2xl">Register</h1>
-      {errors.signUp && (
-        <p class="text-red-500 text-xs italic">{errors.signUp}</p>
-      )}
+      {errors.signUp && <p class="text-red-500 text-xs">{errors.signUp}</p>}
       <form onSubmit={onSubmit}>
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
@@ -124,7 +122,13 @@ export const RegisterForm: Component = () => {
             <p class="text-red-500 text-xs italic">{errors.confirmPassword}</p>
           )}
         </div>
-        <div class="flex items-center justify-end">
+        <div class="flex items-center justify-between">
+          <a
+            class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+            href="/"
+          >
+            Already got an account?
+          </a>
           <button
             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
@@ -136,3 +140,5 @@ export const RegisterForm: Component = () => {
     </div>
   );
 };
+
+export default RegisterForm;

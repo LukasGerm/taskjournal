@@ -1,23 +1,23 @@
-import { Component, createSignal } from "solid-js";
-import { LoginForm } from "../components/LoginForm";
-import { RegisterForm } from "../components/RegisterForm";
+import { Component, ParentComponent, lazy } from "solid-js";
 
-export const Auth: Component = () => {
-  const [currentPage, setCurrentPage] = createSignal<"login" | "register">(
-    "login"
-  );
+import { Route, Router } from "@solidjs/router";
+
+const LoginForm = lazy(() => import("../components/LoginForm"));
+const RegisterForm = lazy(() => import("../components/RegisterForm"));
+
+const Layout: ParentComponent = (props) => {
   return (
     <div class="h-full flex flex-col gap-2 justify-center">
-      <div>{currentPage() === "login" ? <LoginForm /> : <RegisterForm />}</div>
-      <div
-        onclick={() => {
-          setCurrentPage((prev) => {
-            return prev === "login" ? "register" : "login";
-          });
-        }}
-      >
-        {currentPage() === "login" ? "Or register" : "Or login"}
-      </div>
+      {props.children}
     </div>
+  );
+};
+
+export const Auth: Component = () => {
+  return (
+    <Router root={Layout}>
+      <Route path="/" component={LoginForm} />
+      <Route path="/register" component={RegisterForm} />
+    </Router>
   );
 };

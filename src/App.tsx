@@ -2,6 +2,7 @@ import { Match, Switch } from "solid-js";
 import { useObserveSession } from "./lib/user.selectors";
 import { Auth } from "./routes/Auth";
 import { Home } from "./routes/Home";
+
 // type ValidationFunction = ({ value }: { value: string }) => Promise<unknown>;
 
 /* declare module "solid-js" {

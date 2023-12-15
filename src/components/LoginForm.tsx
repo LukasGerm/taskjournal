@@ -1,5 +1,12 @@
 import { Component } from "solid-js";
 
-export const LoginForm: Component = () => {
-  return <div>Login</div>;
+const LoginForm: Component = () => {
+  return (
+    <div>
+      Login
+      <a href="/register">Register</a>
+    </div>
+  );
 };
+
+export default LoginForm;
