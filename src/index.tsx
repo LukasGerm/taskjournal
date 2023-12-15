@@ -3,8 +3,9 @@ import { render } from "solid-js/web";
 import { initializeApp } from "firebase/app";
 
 import "./index.css";
-import App from "./App";
+import { App } from "./App";
 import { getAuth } from "firebase/auth";
+import { RootLayout } from "./RootLayout";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBswjhGeyBUEhQGpbRSfd4b6nWjjpGgtz4",
@@ -22,4 +23,11 @@ getAuth(firebaseApp);
 
 const root = document.getElementById("root");
 
-render(() => <App />, root!);
+render(
+  () => (
+    <RootLayout>
+      <App />
+    </RootLayout>
+  ),
+  root!
+);
