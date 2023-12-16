@@ -2,6 +2,7 @@ import { Component } from "solid-js";
 import { createStore } from "solid-js/store";
 import { useSignUp } from "./hooks/useSignUp";
 import { Input } from "./atoms/Input";
+import { Button } from "./atoms/Button";
 
 const useSubmitForm = () => {
   const [errors, setErrors] = createStore<{
@@ -68,7 +69,7 @@ const RegisterForm: Component = () => {
 
   return (
     <div class="flex gap-5 flex-col">
-      <h1 class="text-2xl">Register</h1>
+      <h1 class="text-2xl text-gray-100">Register</h1>
       {errors.signUp && <p class="text-red-500 text-xs">{errors.signUp}</p>}
       <form onSubmit={onSubmit}>
         <div class="mb-4">
@@ -100,17 +101,12 @@ const RegisterForm: Component = () => {
         </div>
         <div class="flex items-center justify-between">
           <a
-            class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+            class="inline-block align-baseline font-bold text-sm text-gray-100 "
             href="/"
           >
             Already got an account?
           </a>
-          <button
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit"
-          >
-            Register
-          </button>
+          <Button type="submit">Register</Button>
         </div>
       </form>
     </div>

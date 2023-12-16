@@ -2,6 +2,7 @@ import { Component } from "solid-js";
 import { createStore } from "solid-js/store";
 import { Input } from "./atoms/Input";
 import { useSignIn } from "./hooks/useSignIn";
+import { Button } from "./atoms/Button";
 
 const useSubmitForm = () => {
   const [errors, setErrors] = createStore<{
@@ -56,8 +57,8 @@ const LoginForm: Component = () => {
   const { onSubmit, errors } = useSubmitForm();
 
   return (
-    <div class="flex gap-5 flex-col">
-      <h1 class="text-2xl">Login</h1>
+    <div class="flex gap-5 flex-col ">
+      <h1 class="text-2xl text-gray-100">Login</h1>
       {errors.signIn && <p class="text-red-500 text-xs">{errors.signIn}</p>}
       <form onSubmit={onSubmit}>
         <div class="mb-4">
@@ -82,17 +83,12 @@ const LoginForm: Component = () => {
 
         <div class="flex items-center justify-between">
           <a
-            class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+            class="inline-block align-baseline font-bold text-sm text-gray-100 "
             href="/register"
           >
             Need an account?
           </a>
-          <button
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit"
-          >
-            Login
-          </button>
+          <Button type="submit">Login</Button>
         </div>
       </form>
     </div>
