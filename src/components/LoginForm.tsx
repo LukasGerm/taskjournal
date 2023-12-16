@@ -58,7 +58,7 @@ const LoginForm: Component = () => {
 
   return (
     <div class="flex gap-5 flex-col ">
-      <h1 class="text-2xl text-gray-100">Login</h1>
+      <h1 class="text-2xl ">Login</h1>
       {errors.signIn && <p class="text-red-500 text-xs">{errors.signIn}</p>}
       <form onSubmit={onSubmit}>
         <div class="mb-4">
@@ -83,7 +83,7 @@ const LoginForm: Component = () => {
 
         <div class="flex items-center justify-between">
           <a
-            class="inline-block align-baseline font-bold text-sm text-gray-100 "
+            class="inline-block align-baseline font-bold text-sm  "
             href="/register"
           >
             Need an account?

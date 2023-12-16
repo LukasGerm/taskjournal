@@ -69,7 +69,7 @@ const RegisterForm: Component = () => {
 
   return (
     <div class="flex gap-5 flex-col">
-      <h1 class="text-2xl text-gray-100">Register</h1>
+      <h1 class="text-2xl">Register</h1>
       {errors.signUp && <p class="text-red-500 text-xs">{errors.signUp}</p>}
       <form onSubmit={onSubmit}>
         <div class="mb-4">
@@ -100,10 +100,7 @@ const RegisterForm: Component = () => {
           />
         </div>
         <div class="flex items-center justify-between">
-          <a
-            class="inline-block align-baseline font-bold text-sm text-gray-100 "
-            href="/"
-          >
+          <a class="inline-block align-baseline font-bold text-sm  " href="/">
             Already got an account?
           </a>
           <Button type="submit">Register</Button>
