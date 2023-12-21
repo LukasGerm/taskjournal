@@ -1,7 +1,7 @@
 import { Match, Switch } from "solid-js";
-import { useObserveSession } from "./lib/user.selectors";
 import { Auth } from "./routes/Auth";
 import { Home } from "./routes/Home";
+import { useObserveSession } from "./components/hooks/user.selectors";
 
 // type ValidationFunction = ({ value }: { value: string }) => Promise<unknown>;
 

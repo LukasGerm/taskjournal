@@ -6,6 +6,7 @@ import "./index.css";
 import { App } from "./App";
 import { getAuth } from "firebase/auth";
 import { RootLayout } from "./RootLayout";
+import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBswjhGeyBUEhQGpbRSfd4b6nWjjpGgtz4",
@@ -18,6 +19,7 @@ const firebaseConfig = {
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
+const queryClient = new QueryClient();
 
 getAuth(firebaseApp);
 
@@ -25,9 +27,11 @@ const root = document.getElementById("root");
 
 render(
   () => (
-    <RootLayout>
-      <App />
-    </RootLayout>
+    <QueryClientProvider client={queryClient}>
+      <RootLayout>
+        <App />
+      </RootLayout>
+    </QueryClientProvider>
   ),
   root!
 );

@@ -2305,6 +2305,19 @@
   dependencies:
     mini-svg-data-uri "^1.2.3"
 
+"@tanstack/query-core@5.14.2":
+  version "5.14.2"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.14.2.tgz#ef0c1a93e142d5cce90b0ac2d0333a88fc0fbb95"
+  integrity sha512-QmoJvC72sSWs3hgGis8JdmlDvqLfYGWUK4UG6OR9Q6t28JMN9m2FDwKPqoSJ9YVocELCSjMt/FGjEiLfk8000Q==
+
+"@tanstack/solid-query@^5.14.2":
+  version "5.14.2"
+  resolved "https://registry.yarnpkg.com/@tanstack/solid-query/-/solid-query-5.14.2.tgz#ba0261b817ebb0b72db363e9a4461bd13a0aaf08"
+  integrity sha512-c9Lk4jEsknjJWHUlO38w5/ouoRpp7r0tnnpD2Y93dHNihEdprvC6hKo5k2vjFC2NsoX82o6xsf/wMUvaZ34+3w==
+  dependencies:
+    "@tanstack/query-core" "5.14.2"
+    solid-js "^1.8.1"
+
 "@testing-library/dom@^8.19.0":
   version "8.20.1"
   resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-8.20.1.tgz#2e52a32e46fc88369eef7eef634ac2a192decd9f"
@@ -5915,7 +5928,7 @@ solid-jest@^0.2.0:
     babel-jest "^27.0.0"
     enhanced-resolve-jest "^1.1.0"
 
-solid-js@^1.8.7:
+solid-js@^1.8.1, solid-js@^1.8.7:
   version "1.8.7"
   resolved "https://registry.npmjs.org/solid-js/-/solid-js-1.8.7.tgz"
   integrity sha512-9dzrSVieh2zj3SnJ02II6xZkonR6c+j/91b7XZUNcC6xSaldlqjjGh98F1fk5cRJ8ZTkzqF5fPIWDxEOs6QZXA==
