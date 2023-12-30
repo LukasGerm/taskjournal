@@ -28,9 +28,7 @@ const root = document.getElementById("root");
 render(
   () => (
     <QueryClientProvider client={queryClient}>
-      <RootLayout>
-        <App />
-      </RootLayout>
+      <App />
     </QueryClientProvider>
   ),
   root!

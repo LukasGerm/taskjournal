@@ -6,36 +6,53 @@ import {
   where,
   addDoc,
   doc,
+  QueryDocumentSnapshot,
+  FirestoreDataConverter,
 } from "firebase/firestore";
 import { TodoList } from "./types/TodoList";
+
+const converter: FirestoreDataConverter<TodoList> = {
+  toFirestore: (item) => item,
+  fromFirestore: (snapshot: QueryDocumentSnapshot<TodoList>, options) => {
+    const data = snapshot.data(options);
+    return {
+      ...data,
+      id: snapshot.id,
+    };
+  },
+};
 
 export const getTodoByUserAndListName = async (options: {
   userId: string;
   todoListName: string;
-}) => {
+}): Promise<TodoList> => {
   const db = getFirestore();
-  try {
-    const userRef = doc(db, "users", options.userId);
-    const todosRef = collection(userRef, "todolists");
+  const userRef = doc(db, "users", options.userId);
+  const todosRef = collection(userRef, "todolists");
 
-    const q = query(todosRef, where("name", "==", options.todoListName));
+  const q = query(todosRef, where("name", "==", options.todoListName));
 
-    const querySnapshot = await getDocs(q);
+  const querySnapshot = await getDocs(q);
 
-    if (!querySnapshot.empty) {
-      // Return the first document if exists
-      return querySnapshot.docs[0].data() as TodoList;
-    } else {
-      // create empty list
-      const newTodoList: TodoList = {
-        name: options.todoListName,
-        todos: [],
-      };
-      // Add a new document in collection "todolists"
-      await addDoc(todosRef, newTodoList);
-      return newTodoList as TodoList;
-    }
-  } catch (error) {
-    console.error("Error getting documents: ", error);
+  if (!querySnapshot.empty) {
+    const data = querySnapshot.docs[0].data() as TodoList;
+    // Return the first document if exists
+    return {
+      ...data,
+      ref: querySnapshot.docs[0].id,
+    };
+  } else {
+    // create empty list
+    const newTodoList = {
+      name: options.todoListName,
+      todos: [],
+    };
+    // Add a new document in collection "todolists"
+    const ref = await addDoc(todosRef, newTodoList);
+
+    return {
+      ...newTodoList,
+      ref: ref.id,
+    };
   }
 };
