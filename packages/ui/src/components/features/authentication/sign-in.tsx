@@ -30,7 +30,7 @@ export const SignIn = () => {
         <Input placeholder="Username" required />
         <Input placeholder="Password" type="password" required />
         <span>
-          No account?
+          No account?{" "}
           <span
             onClick={handleGuestLogin}
             className="text-primary hover:underline"
