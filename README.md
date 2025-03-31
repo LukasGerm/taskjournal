@@ -1,3 +1,3 @@
-# sluck
+# Taskjournal
 
-Open source slack alternative to self host
+Open source selfhostable note taking tool
