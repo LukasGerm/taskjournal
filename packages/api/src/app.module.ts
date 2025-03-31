@@ -9,12 +9,12 @@ import { TypeOrmModule } from "@nestjs/typeorm";
     AuthModule,
     UsersModule,
     TypeOrmModule.forRoot({
-      type: "mongodb",
+      type: "postgres",
       host: "localhost",
-      port: 27017,
-      database: "test",
-      entities: [],
-      synchronize: true,
+      port: 5432,
+      database: "taskjournal",
+      username: "postgres",
+      password: "mysecretpassword",
     }),
   ],
 })
