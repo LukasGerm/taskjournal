@@ -21,9 +21,10 @@ export class SignUpDto {
 
   @IsEmail()
   email: string;
-}
 
-export class RefreshTokenDto {
   @IsString()
-  refresh_token: string;
+  firstName: string;
+
+  @IsString()
+  lastName: string;
 }

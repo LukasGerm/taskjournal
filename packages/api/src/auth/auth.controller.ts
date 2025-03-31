@@ -11,7 +11,7 @@ import {
 } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { AuthGuard } from "./auth.guard";
-import { RefreshTokenDto, SignInDto, SignUpDto } from "./auth.dto";
+import { SignInDto } from "./auth.dto";
 import { Response as ExpressResponse } from "express";
 import { AuthProfile } from "shared/src/types/auth.types";
 
@@ -55,26 +55,15 @@ export class AuthController {
     this.setCookies(response, result.access_token, result.refresh_token);
   }
 
-  @Post("register")
-  @HttpCode(HttpStatus.CREATED)
-  async signUp(
-    @Body() signUpDto: SignUpDto,
-    @Response({ passthrough: true }) response: ExpressResponse,
-  ) {
-    const result = await this.authService.signUp(signUpDto);
-
-    this.setCookies(response, result.access_token, result.refresh_token);
-  }
-
   @Post("refresh")
   @HttpCode(HttpStatus.OK)
-  refreshToken(@Body() refreshTokenDto: RefreshTokenDto) {
+  refreshToken(@Body() refreshTokenDto: { refresh_token: string }) {
     return this.authService.refreshAccessToken(refreshTokenDto.refresh_token);
   }
 
   @Post("logout")
   @HttpCode(HttpStatus.OK)
-  logout(@Body() refreshTokenDto: RefreshTokenDto) {
+  logout(@Body() refreshTokenDto: { refresh_token: string }) {
     return this.authService.logout(refreshTokenDto.refresh_token);
   }
 

@@ -1,18 +1,21 @@
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { UsersService } from "../users/users.service";
-import { PrismaService } from "../prisma/PrismaService";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
 import * as bcrypt from "bcrypt";
 import { randomBytes } from "crypto";
 import { SignUpDto } from "./auth.dto";
 import { TokenPayload } from "shared/src/types/auth.types";
+import { RefreshToken } from "./token.entity";
 
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
-    private prisma: PrismaService,
+    @InjectRepository(RefreshToken)
+    private refreshTokenRepository: Repository<RefreshToken>,
   ) {}
 
   async signIn(
@@ -57,6 +60,8 @@ export class AuthService {
       username,
       email,
       passwordHash: hashedPassword,
+      firstName: data.firstName,
+      lastName: data.lastName,
     });
 
     const tokens = await this.generateTokens(
@@ -70,7 +75,7 @@ export class AuthService {
   }
 
   private async generateTokens(
-    userId: string,
+    userId: number,
     username: string,
     email: string,
   ) {
@@ -91,23 +96,23 @@ export class AuthService {
     return randomBytes(40).toString("hex");
   }
 
-  private async saveRefreshToken(userId: string, token: string) {
+  private async saveRefreshToken(userId: number, token: string) {
     const expires = new Date();
     expires.setDate(expires.getDate() + 7); // 7 days from now
 
-    await this.prisma.refreshToken.create({
-      data: {
-        token,
-        userId,
-        expires,
-      },
+    const refreshToken = this.refreshTokenRepository.create({
+      token,
+      userId,
+      expires,
     });
+
+    await this.refreshTokenRepository.save(refreshToken);
   }
 
   async refreshAccessToken(refreshToken: string) {
-    const savedToken = await this.prisma.refreshToken.findUnique({
+    const savedToken = await this.refreshTokenRepository.findOne({
       where: { token: refreshToken },
-      include: { user: true },
+      relations: ["user"],
     });
 
     if (
@@ -125,9 +130,8 @@ export class AuthService {
     );
 
     // Revoke the old refresh token
-    await this.prisma.refreshToken.update({
-      where: { id: savedToken.id },
-      data: { isRevoked: true },
+    await this.refreshTokenRepository.update(savedToken.id, {
+      isRevoked: true,
     });
 
     // Save the new refresh token
@@ -137,26 +141,16 @@ export class AuthService {
   }
 
   async logout(refreshToken: string) {
-    await this.prisma.refreshToken.updateMany({
-      where: {
-        token: refreshToken,
-        isRevoked: false,
-      },
-      data: {
-        isRevoked: true,
-      },
-    });
+    await this.refreshTokenRepository.update(
+      { token: refreshToken, isRevoked: false },
+      { isRevoked: true },
+    );
   }
 
-  async revokeAllRefreshTokens(userId: string) {
-    await this.prisma.refreshToken.updateMany({
-      where: {
-        userId,
-        isRevoked: false,
-      },
-      data: {
-        isRevoked: true,
-      },
-    });
+  async revokeAllRefreshTokens(userId: number) {
+    await this.refreshTokenRepository.update(
+      { userId, isRevoked: false },
+      { isRevoked: true },
+    );
   }
 }

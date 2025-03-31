@@ -1,36 +1,40 @@
 import { ConflictException, Injectable } from "@nestjs/common";
-import { PrismaService } from "../prisma/PrismaService";
-import { Prisma } from "@prisma/client";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { User } from "./user.entity";
 
 @Injectable()
 export class UsersService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    @InjectRepository(User)
+    private usersRepository: Repository<User>,
+  ) {}
 
   async findOne(username: string) {
-    return this.prisma.user.findFirst({ where: { username } });
+    return this.usersRepository.findOne({ where: { username } });
   }
 
   async create(data: {
     username: string;
     email: string;
     passwordHash: string;
+    firstName: string;
+    lastName: string;
   }) {
     try {
-      return await this.prisma.user.create({
-        data,
-        select: {
-          id: true,
-          username: true,
-          email: true,
-          createdAt: true,
-          updatedAt: true,
-        },
+      const user = this.usersRepository.create({
+        ...data,
+        firstName: "", // Setting default values for required fields
+        lastName: "",
+        isActive: true,
       });
+
+      return await this.usersRepository.save(user);
     } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        if (error.code === "P2002") {
-          throw new ConflictException("Username or email is already taken");
-        }
+      // Handle unique constraint violations
+      if (error.code === "23505") {
+        // PostgreSQL unique violation code
+        throw new ConflictException("Username or email already exists");
       }
       throw error;
     }
