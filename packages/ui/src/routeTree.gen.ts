@@ -15,7 +15,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as AppImport } from './routes/app'
 import { Route as IndexImport } from './routes/index'
-import { Route as AppChannelImport } from './routes/app/$channel'
 
 // Create Virtual Routes
 
@@ -41,12 +40,6 @@ const AppIndexLazyRoute = AppIndexLazyImport.update({
   getParentRoute: () => AppRoute,
 } as any).lazy(() => import('./routes/app/index.lazy').then((d) => d.Route))
 
-const AppChannelRoute = AppChannelImport.update({
-  id: '/$channel',
-  path: '/$channel',
-  getParentRoute: () => AppRoute,
-} as any)
-
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -65,13 +58,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppImport
       parentRoute: typeof rootRoute
     }
-    '/app/$channel': {
-      id: '/app/$channel'
-      path: '/$channel'
-      fullPath: '/app/$channel'
-      preLoaderRoute: typeof AppChannelImport
-      parentRoute: typeof AppImport
-    }
     '/app/': {
       id: '/app/'
       path: '/'
@@ -85,12 +71,10 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface AppRouteChildren {
-  AppChannelRoute: typeof AppChannelRoute
   AppIndexLazyRoute: typeof AppIndexLazyRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
-  AppChannelRoute: AppChannelRoute,
   AppIndexLazyRoute: AppIndexLazyRoute,
 }
 
@@ -99,13 +83,11 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
-  '/app/$channel': typeof AppChannelRoute
   '/app/': typeof AppIndexLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/app/$channel': typeof AppChannelRoute
   '/app': typeof AppIndexLazyRoute
 }
 
@@ -113,16 +95,15 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
-  '/app/$channel': typeof AppChannelRoute
   '/app/': typeof AppIndexLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/app' | '/app/$channel' | '/app/'
+  fullPaths: '/' | '/app' | '/app/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/app/$channel' | '/app'
-  id: '__root__' | '/' | '/app' | '/app/$channel' | '/app/'
+  to: '/' | '/app'
+  id: '__root__' | '/' | '/app' | '/app/'
   fileRoutesById: FileRoutesById
 }
 
@@ -156,13 +137,8 @@ export const routeTree = rootRoute
     "/app": {
       "filePath": "app.tsx",
       "children": [
-        "/app/$channel",
         "/app/"
       ]
-    },
-    "/app/$channel": {
-      "filePath": "app/$channel.tsx",
-      "parent": "/app"
     },
     "/app/": {
       "filePath": "app/index.lazy.tsx",

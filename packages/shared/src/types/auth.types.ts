@@ -7,5 +7,5 @@ export interface TokenPayload {
 export interface AuthProfile {
   username: string;
   email: string;
-  id: string;
+  id: number;
 }

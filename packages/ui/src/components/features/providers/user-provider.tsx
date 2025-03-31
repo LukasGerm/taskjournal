@@ -2,8 +2,19 @@ import { createContext, useState } from "react";
 import { AuthProfile } from "shared/src/types/auth.types.ts";
 import { getProfile } from "@/adapters/auth.adapter.ts";
 
+interface GuestProfile {
+  username: "Guest";
+  isGuest: true;
+}
+
 export interface UserState {
-  user: AuthProfile;
+  user: AuthProfile | GuestProfile;
+}
+
+function isGuest(user?: AuthProfile | GuestProfile): user is GuestProfile {
+  return Boolean(
+    user && "isGuest" in user && user.isGuest && user.username === "Guest",
+  );
 }
 
 export const UserContext = createContext<{
@@ -21,6 +32,7 @@ export const UserProvider = (props: React.PropsWithChildren) => {
 
   const isAuthenticated = async () => {
     try {
+      if (isGuest(state?.user)) return true;
       const data = await getProfile();
       updateUser({ user: data });
       return true;
