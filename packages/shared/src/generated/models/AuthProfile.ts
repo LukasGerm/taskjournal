@@ -24,25 +24,28 @@ export interface AuthProfile {
      * @type {string}
      * @memberof AuthProfile
      */
-    username?: string;
+    username: string;
     /**
      * 
      * @type {string}
      * @memberof AuthProfile
      */
-    email?: string;
+    email: string;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof AuthProfile
      */
-    id?: number;
+    id: string;
 }
 
 /**
  * Check if a given object implements the AuthProfile interface.
  */
 export function instanceOfAuthProfile(value: object): value is AuthProfile {
+    if (!('username' in value) || value['username'] === undefined) return false;
+    if (!('email' in value) || value['email'] === undefined) return false;
+    if (!('id' in value) || value['id'] === undefined) return false;
     return true;
 }
 
@@ -56,9 +59,9 @@ export function AuthProfileFromJSONTyped(json: any, ignoreDiscriminator: boolean
     }
     return {
         
-        'username': json['username'] == null ? undefined : json['username'],
-        'email': json['email'] == null ? undefined : json['email'],
-        'id': json['id'] == null ? undefined : json['id'],
+        'username': json['username'],
+        'email': json['email'],
+        'id': json['id'],
     };
 }
 

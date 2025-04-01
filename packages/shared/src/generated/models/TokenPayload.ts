@@ -24,25 +24,28 @@ export interface TokenPayload {
      * @type {string}
      * @memberof TokenPayload
      */
-    sub?: string;
+    sub: string;
     /**
      * 
      * @type {string}
      * @memberof TokenPayload
      */
-    username?: string;
+    username: string;
     /**
      * 
      * @type {string}
      * @memberof TokenPayload
      */
-    email?: string;
+    email: string;
 }
 
 /**
  * Check if a given object implements the TokenPayload interface.
  */
 export function instanceOfTokenPayload(value: object): value is TokenPayload {
+    if (!('sub' in value) || value['sub'] === undefined) return false;
+    if (!('username' in value) || value['username'] === undefined) return false;
+    if (!('email' in value) || value['email'] === undefined) return false;
     return true;
 }
 
@@ -56,9 +59,9 @@ export function TokenPayloadFromJSONTyped(json: any, ignoreDiscriminator: boolea
     }
     return {
         
-        'sub': json['sub'] == null ? undefined : json['sub'],
-        'username': json['username'] == null ? undefined : json['username'],
-        'email': json['email'] == null ? undefined : json['email'],
+        'sub': json['sub'],
+        'username': json['username'],
+        'email': json['email'],
     };
 }
 

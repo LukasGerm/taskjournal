@@ -13,20 +13,20 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RefreshToken {
-    #[serde(rename = "token", skip_serializing_if = "Option::is_none")]
-    pub token: Option<String>,
-    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
-    pub user_id: Option<i32>,
-    #[serde(rename = "expires", skip_serializing_if = "Option::is_none")]
-    pub expires: Option<String>,
+    #[serde(rename = "token")]
+    pub token: String,
+    #[serde(rename = "userId")]
+    pub user_id: i32,
+    #[serde(rename = "expires")]
+    pub expires: String,
 }
 
 impl RefreshToken {
-    pub fn new() -> RefreshToken {
+    pub fn new(token: String, user_id: i32, expires: String) -> RefreshToken {
         RefreshToken {
-            token: None,
-            user_id: None,
-            expires: None,
+            token,
+            user_id,
+            expires,
         }
     }
 }

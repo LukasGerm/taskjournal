@@ -13,20 +13,20 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct TokenPayload {
-    #[serde(rename = "sub", skip_serializing_if = "Option::is_none")]
-    pub sub: Option<String>,
-    #[serde(rename = "username", skip_serializing_if = "Option::is_none")]
-    pub username: Option<String>,
-    #[serde(rename = "email", skip_serializing_if = "Option::is_none")]
-    pub email: Option<String>,
+    #[serde(rename = "sub")]
+    pub sub: String,
+    #[serde(rename = "username")]
+    pub username: String,
+    #[serde(rename = "email")]
+    pub email: String,
 }
 
 impl TokenPayload {
-    pub fn new() -> TokenPayload {
+    pub fn new(sub: String, username: String, email: String) -> TokenPayload {
         TokenPayload {
-            sub: None,
-            username: None,
-            email: None,
+            sub,
+            username,
+            email,
         }
     }
 }

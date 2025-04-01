@@ -13,20 +13,20 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AuthProfile {
-    #[serde(rename = "username", skip_serializing_if = "Option::is_none")]
-    pub username: Option<String>,
-    #[serde(rename = "email", skip_serializing_if = "Option::is_none")]
-    pub email: Option<String>,
-    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
-    pub id: Option<i32>,
+    #[serde(rename = "username")]
+    pub username: String,
+    #[serde(rename = "email")]
+    pub email: String,
+    #[serde(rename = "id")]
+    pub id: String,
 }
 
 impl AuthProfile {
-    pub fn new() -> AuthProfile {
+    pub fn new(username: String, email: String, id: String) -> AuthProfile {
         AuthProfile {
-            username: None,
-            email: None,
-            id: None,
+            username,
+            email,
+            id,
         }
     }
 }

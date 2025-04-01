@@ -32,7 +32,25 @@ export interface User {
      * @type {string}
      * @memberof User
      */
-    id?: string;
+    id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    email: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    username: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    passwordHash: string;
     /**
      * 
      * @type {string}
@@ -47,24 +65,6 @@ export interface User {
     lastName?: string;
     /**
      * 
-     * @type {string}
-     * @memberof User
-     */
-    email?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    username?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    passwordHash?: string;
-    /**
-     * 
      * @type {Array<RefreshToken>}
      * @memberof User
      */
@@ -75,6 +75,10 @@ export interface User {
  * Check if a given object implements the User interface.
  */
 export function instanceOfUser(value: object): value is User {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('email' in value) || value['email'] === undefined) return false;
+    if (!('username' in value) || value['username'] === undefined) return false;
+    if (!('passwordHash' in value) || value['passwordHash'] === undefined) return false;
     return true;
 }
 
@@ -88,12 +92,12 @@ export function UserFromJSONTyped(json: any, ignoreDiscriminator: boolean): User
     }
     return {
         
-        'id': json['id'] == null ? undefined : json['id'],
+        'id': json['id'],
+        'email': json['email'],
+        'username': json['username'],
+        'passwordHash': json['passwordHash'],
         'firstName': json['firstName'] == null ? undefined : json['firstName'],
         'lastName': json['lastName'] == null ? undefined : json['lastName'],
-        'email': json['email'] == null ? undefined : json['email'],
-        'username': json['username'] == null ? undefined : json['username'],
-        'passwordHash': json['passwordHash'] == null ? undefined : json['passwordHash'],
         'refreshTokens': json['refreshTokens'] == null ? undefined : ((json['refreshTokens'] as Array<any>).map(RefreshTokenFromJSON)),
     };
 }
@@ -110,11 +114,11 @@ export function UserToJSONTyped(value?: User | null, ignoreDiscriminator: boolea
     return {
         
         'id': value['id'],
-        'firstName': value['firstName'],
-        'lastName': value['lastName'],
         'email': value['email'],
         'username': value['username'],
         'passwordHash': value['passwordHash'],
+        'firstName': value['firstName'],
+        'lastName': value['lastName'],
         'refreshTokens': value['refreshTokens'] == null ? undefined : ((value['refreshTokens'] as Array<any>).map(RefreshTokenToJSON)),
     };
 }

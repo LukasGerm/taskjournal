@@ -5,6 +5,11 @@ info:
 components:
   schemas:
     User:
+      required:
+        - id
+        - email
+        - passwordHash
+        - username
       type: object
       properties:
         id:
@@ -29,6 +34,10 @@ components:
 
     Page:
       type: object
+      required:
+        - id
+        - content
+        - userId
       properties:
         id:
           type: string
@@ -41,6 +50,10 @@ components:
 
     RefreshToken:
       type: object
+      required:
+        - token
+        - userId
+        - expires
       properties:
         token:
           type: string
@@ -49,8 +62,13 @@ components:
         expires:
           type: string
           format: date-time
+
     TokenPayload:
       type: object
+      required:
+        - sub
+        - username
+        - email
       properties:
         sub:
           type: string
@@ -60,10 +78,14 @@ components:
           type: string
     AuthProfile:
       type: object
+      required:
+        - username
+        - email
+        - id
       properties:
         username:
           type: string
         email:
           type: string
         id:
-          type: integer
+          type: string

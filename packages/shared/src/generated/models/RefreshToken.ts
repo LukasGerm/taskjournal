@@ -24,25 +24,28 @@ export interface RefreshToken {
      * @type {string}
      * @memberof RefreshToken
      */
-    token?: string;
+    token: string;
     /**
      * 
      * @type {number}
      * @memberof RefreshToken
      */
-    userId?: number;
+    userId: number;
     /**
      * 
      * @type {Date}
      * @memberof RefreshToken
      */
-    expires?: Date;
+    expires: Date;
 }
 
 /**
  * Check if a given object implements the RefreshToken interface.
  */
 export function instanceOfRefreshToken(value: object): value is RefreshToken {
+    if (!('token' in value) || value['token'] === undefined) return false;
+    if (!('userId' in value) || value['userId'] === undefined) return false;
+    if (!('expires' in value) || value['expires'] === undefined) return false;
     return true;
 }
 
@@ -56,9 +59,9 @@ export function RefreshTokenFromJSONTyped(json: any, ignoreDiscriminator: boolea
     }
     return {
         
-        'token': json['token'] == null ? undefined : json['token'],
-        'userId': json['userId'] == null ? undefined : json['userId'],
-        'expires': json['expires'] == null ? undefined : (new Date(json['expires'])),
+        'token': json['token'],
+        'userId': json['userId'],
+        'expires': (new Date(json['expires'])),
     };
 }
 
@@ -75,7 +78,7 @@ export function RefreshTokenToJSONTyped(value?: RefreshToken | null, ignoreDiscr
         
         'token': value['token'],
         'userId': value['userId'],
-        'expires': value['expires'] == null ? undefined : ((value['expires']).toISOString()),
+        'expires': ((value['expires']).toISOString()),
     };
 }
 

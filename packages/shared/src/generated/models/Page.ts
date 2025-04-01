@@ -24,25 +24,28 @@ export interface Page {
      * @type {string}
      * @memberof Page
      */
-    id?: string;
+    id: string;
     /**
      * 
      * @type {string}
      * @memberof Page
      */
-    content?: string;
+    content: string;
     /**
      * 
      * @type {string}
      * @memberof Page
      */
-    userId?: string;
+    userId: string;
 }
 
 /**
  * Check if a given object implements the Page interface.
  */
 export function instanceOfPage(value: object): value is Page {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('content' in value) || value['content'] === undefined) return false;
+    if (!('userId' in value) || value['userId'] === undefined) return false;
     return true;
 }
 
@@ -56,9 +59,9 @@ export function PageFromJSONTyped(json: any, ignoreDiscriminator: boolean): Page
     }
     return {
         
-        'id': json['id'] == null ? undefined : json['id'],
-        'content': json['content'] == null ? undefined : json['content'],
-        'userId': json['userId'] == null ? undefined : json['userId'],
+        'id': json['id'],
+        'content': json['content'],
+        'userId': json['userId'],
     };
 }
 

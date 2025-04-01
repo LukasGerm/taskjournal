@@ -13,20 +13,20 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Page {
-    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
-    pub id: Option<uuid::Uuid>,
-    #[serde(rename = "content", skip_serializing_if = "Option::is_none")]
-    pub content: Option<String>,
-    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
-    pub user_id: Option<uuid::Uuid>,
+    #[serde(rename = "id")]
+    pub id: uuid::Uuid,
+    #[serde(rename = "content")]
+    pub content: String,
+    #[serde(rename = "userId")]
+    pub user_id: uuid::Uuid,
 }
 
 impl Page {
-    pub fn new() -> Page {
+    pub fn new(id: uuid::Uuid, content: String, user_id: uuid::Uuid) -> Page {
         Page {
-            id: None,
-            content: None,
-            user_id: None,
+            id,
+            content,
+            user_id,
         }
     }
 }

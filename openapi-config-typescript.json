@@ -4,6 +4,7 @@
   "outputDir": "./packages/shared/src/generated",
   "additionalProperties": {
     "supportsES6": true,
-    "withInterfaces": true
+    "withInterfaces": true,
+    "sortModelPropertiesByRequiredFlag": true
   }
 }
