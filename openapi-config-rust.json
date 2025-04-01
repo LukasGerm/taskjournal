@@ -1,7 +1,7 @@
 {
   "inputSpec": "openapi.yaml",
   "generatorName": "rust",
-  "outputDir": "./packages/ui/src-tauri/src/generated",
+  "outputDir": "./packages/ui/rust-openapi-client",
   "additionalProperties": {
     "library": "reqwest"
   }
