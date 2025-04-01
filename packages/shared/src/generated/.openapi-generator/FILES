@@ -1,0 +1,9 @@
+.openapi-generator-ignore
+index.ts
+models/AuthProfile.ts
+models/Page.ts
+models/RefreshToken.ts
+models/TokenPayload.ts
+models/User.ts
+models/index.ts
+runtime.ts

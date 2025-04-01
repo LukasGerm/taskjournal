@@ -4,7 +4,7 @@ import { UsersService } from "../users/users.service";
 import * as bcrypt from "bcrypt";
 import { randomBytes } from "crypto";
 import { SignUpDto } from "./auth.dto";
-import { TokenPayload } from "shared/src/types/auth.types";
+import { TokenPayload } from "../generated";
 
 @Injectable()
 export class AuthService {
@@ -74,7 +74,7 @@ export class AuthService {
     username: string,
     email: string,
   ) {
-    const payload: TokenPayload = { sub: userId, username, email };
+    const payload: TokenPayload = { sub: userId.toString(), username, email };
 
     const [access_token, refresh_token] = await Promise.all([
       this.jwtService.signAsync(payload, { expiresIn: "15m" }),

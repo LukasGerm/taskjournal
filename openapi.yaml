@@ -1,0 +1,68 @@
+openapi: 3.1.1
+info:
+  title: Data Models
+  version: 1.0.0
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        username:
+          type: string
+        passwordHash:
+          type: string
+          format: password
+        refreshTokens:
+          type: array
+          items:
+            $ref: '#/components/schemas/RefreshToken'
+
+    Page:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        content:
+          type: string
+        user:
+          $ref: '#/components/schemas/User'
+
+    RefreshToken:
+      type: object
+      properties:
+        token:
+          type: string
+        userId:
+          type: integer
+        expires:
+          type: string
+          format: date-time
+    TokenPayload:
+      type: object
+      properties:
+        sub:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+    AuthProfile:
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        id:
+          type: integer

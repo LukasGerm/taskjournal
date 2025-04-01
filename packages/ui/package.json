@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:tauri": "yarn tauri dev",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
@@ -28,6 +29,7 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.18.4",
     "@tailwindcss/vite": "^4.0.15",
     "@tanstack/router-devtools": "^1.114.27",
     "@tanstack/router-vite-plugin": "^1.114.27",

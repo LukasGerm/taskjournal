@@ -7,8 +7,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:server": "cd packages/api/ && yarn start:dev",
-    "dev:ui": "cd packages/ui/ && yarn dev",
-    "prettier:write": "prettier --write ."
+    "dev:ui": "cd packages/ui/ && yarn dev:tauri",
+    "prettier:write": "prettier --write .",
+    "generate-clients:typescript": "npx @openapitools/openapi-generator-cli generate -c openapi-config-typescript.json",
+    "generate-clients:rust": "npx @openapitools/openapi-generator-cli generate -c openapi-config-rust.json",
+    "generate-clients": "yarn generate-clients:rust && yarn generate-clients:typescript"
   },
   "devDependencies": {
     "prettier": "^3.5.3"

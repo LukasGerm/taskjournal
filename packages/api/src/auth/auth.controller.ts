@@ -13,7 +13,7 @@ import { AuthService } from "./auth.service";
 import { AuthGuard } from "./auth.guard";
 import { SignInDto } from "./auth.dto";
 import { Response as ExpressResponse } from "express";
-import { AuthProfile } from "shared/src/types/auth.types";
+import { AuthProfile } from "../generated";
 
 @Controller("auth")
 export class AuthController {

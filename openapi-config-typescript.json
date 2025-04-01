@@ -1,7 +1,7 @@
 {
-  "inputSpec": "../../openapi.yaml",
+  "inputSpec": "openapi.yaml",
   "generatorName": "typescript-fetch",
-  "outputDir": "./src/generated",
+  "outputDir": "./packages/shared/src/generated",
   "additionalProperties": {
     "supportsES6": true,
     "withInterfaces": true
