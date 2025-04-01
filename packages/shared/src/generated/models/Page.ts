@@ -13,14 +13,6 @@
  */
 
 import { mapValues } from '../runtime';
-import type { User } from './User';
-import {
-    UserFromJSON,
-    UserFromJSONTyped,
-    UserToJSON,
-    UserToJSONTyped,
-} from './User';
-
 /**
  * 
  * @export
@@ -41,10 +33,10 @@ export interface Page {
     content?: string;
     /**
      * 
-     * @type {User}
+     * @type {string}
      * @memberof Page
      */
-    user?: User;
+    userId?: string;
 }
 
 /**
@@ -66,7 +58,7 @@ export function PageFromJSONTyped(json: any, ignoreDiscriminator: boolean): Page
         
         'id': json['id'] == null ? undefined : json['id'],
         'content': json['content'] == null ? undefined : json['content'],
-        'user': json['user'] == null ? undefined : UserFromJSON(json['user']),
+        'userId': json['userId'] == null ? undefined : json['userId'],
     };
 }
 
@@ -83,7 +75,7 @@ export function PageToJSONTyped(value?: Page | null, ignoreDiscriminator: boolea
         
         'id': value['id'],
         'content': value['content'],
-        'user': UserToJSON(value['user']),
+        'userId': value['userId'],
     };
 }
 

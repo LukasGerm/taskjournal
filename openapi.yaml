@@ -35,8 +35,9 @@ components:
           format: uuid
         content:
           type: string
-        user:
-          $ref: '#/components/schemas/User'
+        userId:
+          type: string
+          format: uuid
 
     RefreshToken:
       type: object

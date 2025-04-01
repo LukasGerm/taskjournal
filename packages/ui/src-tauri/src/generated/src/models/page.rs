@@ -17,8 +17,8 @@ pub struct Page {
     pub id: Option<uuid::Uuid>,
     #[serde(rename = "content", skip_serializing_if = "Option::is_none")]
     pub content: Option<String>,
-    #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
-    pub user: Option<Box<models::User>>,
+    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
+    pub user_id: Option<uuid::Uuid>,
 }
 
 impl Page {
@@ -26,7 +26,7 @@ impl Page {
         Page {
             id: None,
             content: None,
-            user: None,
+            user_id: None,
         }
     }
 }
