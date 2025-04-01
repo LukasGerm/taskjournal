@@ -1,21 +1,16 @@
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { UsersService } from "../users/users.service";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
 import * as bcrypt from "bcrypt";
 import { randomBytes } from "crypto";
 import { SignUpDto } from "./auth.dto";
 import { TokenPayload } from "shared/src/types/auth.types";
-import { RefreshToken } from "./token.entity";
 
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
-    @InjectRepository(RefreshToken)
-    private refreshTokenRepository: Repository<RefreshToken>,
   ) {}
 
   async signIn(
