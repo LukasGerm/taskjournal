@@ -1,11 +1,12 @@
-use crate::database::connect_to_database;
-
 mod database;
 
+pub const APP_NAME: &str = env!("CARGO_PKG_NAME");
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
-pub fn run() {
-    connect_to_database();
+pub async fn run() {
+    let db = database::connect::connect_to_database().await;
     tauri::Builder::default()
+        .manage(db)
         .setup(|app| {
             if cfg!(debug_assertions) {
                 app.handle().plugin(
