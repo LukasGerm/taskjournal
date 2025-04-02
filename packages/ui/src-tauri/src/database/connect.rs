@@ -9,7 +9,6 @@ pub async fn connect_to_database() -> Result<Surreal<Db>, anyhow::Error> {
 
     match dir {
         Some(mut path) => {
-            // If a valid home directory is found, push "test.db" to the path
             path.push(APP_NAME.to_string() + "/db");
 
             // Use the path with SurrealDB
