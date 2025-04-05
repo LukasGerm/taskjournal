@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
-import { getProfile } from "@/adapters/auth.adapter.ts";
+import { getProfile, USER_PROFILE_KEY } from "@/adapters/auth.adapter.ts";
 import { AuthProfile } from "shared/src/generated";
+import { getValue, setValue } from "@/adapters/store.adapter.ts";
 
 interface GuestProfile {
   username: "Guest";
@@ -11,33 +12,32 @@ export interface UserState {
   user: AuthProfile | GuestProfile;
 }
 
-function isGuest(user?: AuthProfile | GuestProfile): user is GuestProfile {
-  return Boolean(
-    user && "isGuest" in user && user.isGuest && user.username === "Guest",
-  );
-}
-
 export const UserContext = createContext<{
   user: UserState | null;
-  updateUser: (user: UserState) => void;
+  updateUser: (user: UserState) => Promise<void>;
   isAuthenticated: () => Promise<boolean>;
 } | null>(null);
 
 export const UserProvider = (props: React.PropsWithChildren) => {
   const [state, setState] = useState<UserState | null>(null);
 
-  const updateUser = (user: UserState) => {
+  const updateUser = async (user: UserState) => {
+    await setValue(USER_PROFILE_KEY, user);
     setState(user);
   };
 
   const isAuthenticated = async () => {
     try {
-      if (isGuest(state?.user)) return true;
-      const data = await getProfile();
-      updateUser({ user: data });
+      let userState = await getValue<UserState>(USER_PROFILE_KEY);
+      // If nothing is in local storage, fetch from server
+      if (!userState) {
+        const profile = await getProfile();
+        userState = { user: profile };
+      }
+
+      await updateUser(userState);
       return true;
     } catch (e) {
-      console.log(e);
       return false;
     }
   };

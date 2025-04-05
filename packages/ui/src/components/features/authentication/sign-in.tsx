@@ -8,7 +8,7 @@ export const SignIn = () => {
   const updateUser = useUpdateUser();
 
   const handleGuestLogin = async () => {
-    updateUser({
+    await updateUser({
       user: {
         username: "Guest",
         isGuest: true,
@@ -33,7 +33,7 @@ export const SignIn = () => {
           No account?{" "}
           <span
             onClick={handleGuestLogin}
-            className="text-primary hover:underline"
+            className="text-primary hover:underline cursor-pointer"
           >
             Continue as guest
           </span>

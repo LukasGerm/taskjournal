@@ -3,10 +3,21 @@ import { SignIn } from "@/components/features/authentication/sign-in.tsx";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
-  beforeLoad: ({ context }) => {
+  pendingComponent: () => <div>Loading...</div>,
+  beforeLoad: async ({ context }) => {
     if (context.user) {
       throw redirect({
         to: "/app",
+      });
+    }
+    const authenticated = await context.isAuthenticated();
+
+    if (authenticated) {
+      throw redirect({
+        to: "/app",
+        search: {
+          redirect: location.href,
+        },
       });
     }
   },
