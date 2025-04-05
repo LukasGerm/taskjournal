@@ -28,3 +28,4 @@ surrealdb = { version = "2.2.1", features = ["kv-rocksdb"] }
 tokio = { version = "1.44.1", features = ["macros", "rt-multi-thread", "rt"] }
 dirs-next = "2.0.0"
 anyhow = "1.0.97"
+tauri-plugin-store = "2"

@@ -15,7 +15,6 @@ impl GenericRepository<Page> for PageRepository {
         Self { db }
     }
 
-
     async fn save(&self, item: Page) -> Result<Option<Page>, anyhow::Error> {
         let db = &self.db;
 

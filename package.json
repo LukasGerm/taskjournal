@@ -1,5 +1,5 @@
 {
-  "name": "sluck",
+  "name": "taskjournal",
   "private": true,
   "version": "0.0.1",
   "description": "Open source slack alternative to self host",
