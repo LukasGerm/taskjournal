@@ -1,4 +1,4 @@
-import { AuthProfile } from "shared/src/types/auth.types.ts";
+import { AuthProfile } from "shared/src/generated";
 
 export const getProfile = async (): Promise<AuthProfile> => {
   const data = await fetch(import.meta.env.VITE_API_URL + "/auth/profile", {

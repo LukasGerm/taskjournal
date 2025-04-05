@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
-import { AuthProfile } from "shared/src/types/auth.types.ts";
 import { getProfile } from "@/adapters/auth.adapter.ts";
+import { AuthProfile } from "shared/src/generated";
 
 interface GuestProfile {
   username: "Guest";
