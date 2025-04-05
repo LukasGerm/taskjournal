@@ -14,7 +14,7 @@ pub async fn connect_to_database() -> Result<Surreal<Db>, anyhow::Error> {
             // Use the path with SurrealDB
             let db = Surreal::new::<RocksDb>(path).await?;
 
-            db.use_ns("test").use_db("test").await?;
+            db.use_ns("taskjournal").use_db("taskjournal").await?;
 
             Ok(db)
         }
