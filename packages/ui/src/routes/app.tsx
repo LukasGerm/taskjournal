@@ -1,10 +1,17 @@
 import { Outlet, redirect, createFileRoute } from "@tanstack/react-router";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar.tsx";
+import { AppSideBar } from "@/components/features/side-bar/app-side-bar.tsx";
 
 export const Route = createFileRoute("/app")({
   component: () => (
     <div className="flex flex-row gap-2">
-      <div>SIDENAV</div>
-      <Outlet />
+      <SidebarProvider>
+        <AppSideBar />
+        <div className="flex gap-2 p-4">
+          <SidebarTrigger />
+          <Outlet />
+        </div>
+      </SidebarProvider>
     </div>
   ),
   pendingComponent: () => <div>Loading...</div>,

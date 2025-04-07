@@ -6,7 +6,7 @@ export const useUser = () => {
   if (!user) {
     throw new Error("useUser must be used within a UserProvider");
   }
-  return user.user;
+  return user.user!;
 };
 
 export const useUpdateUser = () => {
