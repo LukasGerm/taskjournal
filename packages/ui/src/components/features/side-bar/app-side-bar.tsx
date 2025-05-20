@@ -18,7 +18,7 @@ export const AppSideBar = () => {
   return (
     <Sidebar>
       <SidebarHeader>
-        <div className="flex gap-2 py-2 items-center">
+        <div className="flex gap-2 py-2 px-2 items-center">
           <Avatar>
             <AvatarFallback>{user.username.slice(0, 1)}</AvatarFallback>
           </Avatar>

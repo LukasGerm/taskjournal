@@ -24,8 +24,8 @@ log = "0.4"
 tauri = { version = "2.4.0", features = [] }
 tauri-plugin-log = "2.0.0-rc"
 openapi = { path = "../rust-openapi-client" }
-surrealdb = { version = "2.2.1", features = ["kv-rocksdb"] }
 tokio = { version = "1.44.1", features = ["macros", "rt-multi-thread", "rt"] }
 dirs-next = "2.0.0"
 anyhow = "1.0.97"
 tauri-plugin-store = "2"
+tauri-plugin-sql = { version = "2", features = ["sqlite"] }
