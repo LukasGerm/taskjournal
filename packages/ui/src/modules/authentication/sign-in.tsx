@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/atoms/button.tsx";
 import { Input } from "@/components/ui/input.tsx";
 import { useNavigate } from "@tanstack/react-router";
-import { useUpdateUser } from "@/components/features/providers/hooks/user.hooks.ts";
+import { useUpdateUser } from "@/modules/providers/hooks/user.hooks.ts";
 
 export const SignIn = () => {
   const navigate = useNavigate();

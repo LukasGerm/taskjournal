@@ -1,6 +1,6 @@
 import { Outlet, redirect, createFileRoute } from "@tanstack/react-router";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar.tsx";
-import { AppSideBar } from "@/components/features/side-bar/app-side-bar.tsx";
+import { AppSideBar } from "@/modules/side-bar/app-side-bar.tsx";
 
 export const Route = createFileRoute("/app")({
   component: () => (

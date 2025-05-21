@@ -1,6 +1,6 @@
 import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
-import { UserState } from "@/components/features/providers/user-provider.tsx";
+import { UserState } from "@/modules/providers/user-provider.tsx";
 
 interface RootRouteContext {
   user: UserState | null;

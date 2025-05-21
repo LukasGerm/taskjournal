@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/sidebar";
 import { PlusIcon } from "@heroicons/react/20/solid";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar.tsx";
-import { useUser } from "@/components/features/providers/hooks/user.hooks.ts";
+import { useUser } from "@/modules/providers/hooks/user.hooks.ts";
 
 export const AppSideBar = () => {
   const { user } = useUser();

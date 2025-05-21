@@ -5,11 +5,11 @@ import "./index.css";
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { UserProvider } from "@/components/features/providers/user-provider.tsx";
+import { UserProvider } from "@/modules/providers/user-provider.tsx";
 import {
   useIsAuthenticated,
   useUser,
-} from "@/components/features/providers/hooks/user.hooks.ts";
+} from "@/modules/providers/hooks/user.hooks.ts";
 
 // Create a new router instance
 const router = createRouter({
@@ -46,5 +46,5 @@ root.render(
         <InnerApp />
       </UserProvider>
     </QueryClientProvider>
-  </StrictMode>,
+  </StrictMode>
 );
