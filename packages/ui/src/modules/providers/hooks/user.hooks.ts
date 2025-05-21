@@ -24,3 +24,11 @@ export const useIsAuthenticated = () => {
   }
   return user.isAuthenticated;
 };
+
+export const useLogout = () => {
+  const context = useContext(UserContext);
+  if (!context) {
+    throw new Error("useLogout must be used within a UserProvider");
+  }
+  return context.logout;
+};

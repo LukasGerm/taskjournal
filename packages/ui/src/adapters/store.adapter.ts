@@ -12,3 +12,9 @@ export async function setValue<T extends object>(key: string, value: T) {
   const store = await load("store.json");
   await store.set(key, value);
 }
+
+export async function removeValue(key: string) {
+  const store = await load("store.json");
+  await store.delete(key);
+  await store.save(); // Ensure changes are persisted
+}

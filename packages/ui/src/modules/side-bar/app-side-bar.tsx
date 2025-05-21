@@ -9,26 +9,44 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSkeleton,
+  SidebarFooter,
 } from "@/components/ui/sidebar";
 import { PlusIcon as PlusIconSolid } from "@heroicons/react/20/solid";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar.tsx";
-import { useUser } from "@/modules/providers/hooks/user.hooks.ts";
-import { useCreatePage, usePages } from "@/modules/hooks/page.hooks.ts";
-import { Loader2, FileText } from "lucide-react";
+import { useUser, useLogout } from "@/modules/providers/hooks/user.hooks.ts";
+import {
+  useCreatePage,
+  usePages,
+  PAGE_QUERY_KEY_BASE,
+} from "@/modules/hooks/page.hooks.ts";
+import { Loader2, FileText, LogOutIcon } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "@tanstack/react-router";
 
 export const AppSideBar = () => {
-  const { user } = useUser(); // Corrected: useUser returns the user object directly
+  const { user } = useUser();
   const createPageMutation = useCreatePage();
   const {
     data: pages,
     isLoading: isLoadingPages,
     isError: isErrorPages,
   } = usePages(user.id);
+  const logout = useLogout();
+  const queryClient = useQueryClient();
+  const router = useRouter();
 
   const handleAddPage = () => {
     createPageMutation.mutate({
       userId: user.id,
       content: "Untitled Page",
+    });
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    queryClient.removeQueries({ queryKey: [PAGE_QUERY_KEY_BASE] });
+    router.navigate({
+      to: "/",
     });
   };
 
@@ -96,6 +114,19 @@ export const AppSideBar = () => {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              className="cursor-pointer"
+              onClick={handleLogout}
+            >
+              <LogOutIcon />
+              <span>Logout</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   );
 };
