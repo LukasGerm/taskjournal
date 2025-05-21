@@ -8,7 +8,8 @@
     "dev:tauri": "yarn tauri dev",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "tsc": "tsc --noEmit"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.3",

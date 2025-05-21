@@ -1,7 +1,7 @@
 import { load } from "@tauri-apps/plugin-store";
 
 export async function getValue<T extends object>(
-  key: string,
+  key: string
 ): Promise<T | undefined> {
   const store = await load("store.json");
 

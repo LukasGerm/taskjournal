@@ -1,7 +1,9 @@
 import { createContext, useState } from "react";
-import { getProfile, USER_PROFILE_KEY } from "@/adapters/auth.adapter.ts";
+import { getProfile } from "@/adapters/auth.adapter.ts";
 import { AuthProfile } from "shared/src/generated";
 import { getValue, setValue } from "@/adapters/store.adapter.ts";
+
+export const USER_PROFILE_KEY = "user-profile";
 
 interface GuestProfile {
   username: "Guest";
