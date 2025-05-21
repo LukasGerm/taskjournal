@@ -8,6 +8,7 @@ export const USER_PROFILE_KEY = "user-profile";
 interface GuestProfile {
   username: "Guest";
   isGuest: true;
+  id: "0";
 }
 
 export interface UserState {

@@ -12,6 +12,7 @@ export const SignIn = () => {
       user: {
         username: "Guest",
         isGuest: true,
+        id: "0",
       },
     });
     await navigate({
