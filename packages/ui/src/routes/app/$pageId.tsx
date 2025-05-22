@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-export const PageRoute = createFileRoute("/app/$pageId")({
+export const Route = createFileRoute("/app/$pageId")({
   component: PageComponent,
 });
 
 function PageComponent() {
-  const { pageId } = PageRoute.useParams();
+  const { pageId } = Route.useParams();
 
   return (
     <div className="p-4">
