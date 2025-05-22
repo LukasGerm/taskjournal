@@ -21,7 +21,8 @@ export const useCreatePage = () => {
   const queryClient = useQueryClient();
 
   return useMutation<Page, Error, CreatePageInput>({
-    mutationFn: (newPage: CreatePageInput) => createPage(newPage),
+    mutationFn: (newPage: CreatePageInput) =>
+      createPage({ ...newPage, createdAt: new Date(), updatedAt: new Date() }),
 
     onSuccess: (data) => {
       queryClient.invalidateQueries({

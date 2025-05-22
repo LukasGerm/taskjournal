@@ -37,6 +37,18 @@ export interface Page {
      * @memberof Page
      */
     userId: string;
+    /**
+     * 
+     * @type {Date}
+     * @memberof Page
+     */
+    createdAt?: Date;
+    /**
+     * 
+     * @type {Date}
+     * @memberof Page
+     */
+    updatedAt?: Date;
 }
 
 /**
@@ -62,6 +74,8 @@ export function PageFromJSONTyped(json: any, ignoreDiscriminator: boolean): Page
         'id': json['id'],
         'content': json['content'],
         'userId': json['userId'],
+        'createdAt': json['createdAt'] == null ? undefined : (new Date(json['createdAt'])),
+        'updatedAt': json['updatedAt'] == null ? undefined : (new Date(json['updatedAt'])),
     };
 }
 
@@ -79,6 +93,8 @@ export function PageToJSONTyped(value?: Page | null, ignoreDiscriminator: boolea
         'id': value['id'],
         'content': value['content'],
         'userId': value['userId'],
+        'createdAt': value['createdAt'] == null ? undefined : ((value['createdAt']).toISOString()),
+        'updatedAt': value['updatedAt'] == null ? undefined : ((value['updatedAt']).toISOString()),
     };
 }
 

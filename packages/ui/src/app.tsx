@@ -4,12 +4,11 @@ import { RouterProvider, createRouter } from "@tanstack/react-router";
 import "./index.css";
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { UserProvider } from "@/modules/providers/user-provider.tsx";
 import {
   useIsAuthenticated,
   useUser,
 } from "@/modules/providers/hooks/user.hooks.ts";
+import { Providers } from "@/modules/providers.tsx"; // Updated import path
 
 // Create a new router instance
 const router = createRouter({
@@ -27,8 +26,6 @@ declare module "@tanstack/react-router" {
   }
 }
 
-const client = new QueryClient();
-
 // Render the app
 const rootElement = document.getElementById("root")!;
 const root = ReactDOM.createRoot(rootElement);
@@ -41,10 +38,10 @@ const InnerApp = () => {
 
 root.render(
   <StrictMode>
-    <QueryClientProvider client={client}>
-      <UserProvider>
-        <InnerApp />
-      </UserProvider>
-    </QueryClientProvider>
+    <Providers>
+      {" "}
+      {/* Use the Providers component to wrap InnerApp */}
+      <InnerApp />
+    </Providers>
   </StrictMode>
 );

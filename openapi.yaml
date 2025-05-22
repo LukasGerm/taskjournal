@@ -30,7 +30,7 @@ components:
         refreshTokens:
           type: array
           items:
-            $ref: '#/components/schemas/RefreshToken'
+            $ref: "#/components/schemas/RefreshToken"
 
     Page:
       type: object
@@ -47,6 +47,12 @@ components:
         userId:
           type: string
           format: uuid
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
 
     RefreshToken:
       type: object

@@ -11,21 +11,17 @@ import {
   SidebarMenuSkeleton,
   SidebarFooter,
 } from "@/components/ui/sidebar";
-import { PlusIcon as PlusIconSolid } from "@heroicons/react/20/solid";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar.tsx";
 import { useUser, useLogout } from "@/modules/providers/hooks/user.hooks.ts";
-import {
-  useCreatePage,
-  usePages,
-  PAGE_QUERY_KEY_BASE,
-} from "@/modules/hooks/page.hooks.ts";
-import { Loader2, FileText, LogOutIcon } from "lucide-react";
+import { usePages, PAGE_QUERY_KEY_BASE } from "@/modules/hooks/page.hooks.ts";
+import { FileText, LogOutIcon } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "@tanstack/react-router";
+import { useParams, useRouter } from "@tanstack/react-router";
+import { cn } from "@/lib/utils.ts";
+import { AddPageButton } from "./add-page-button.tsx";
 
 export const AppSideBar = () => {
   const { user } = useUser();
-  const createPageMutation = useCreatePage();
   const {
     data: pages,
     isLoading: isLoadingPages,
@@ -35,12 +31,7 @@ export const AppSideBar = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
 
-  const handleAddPage = () => {
-    createPageMutation.mutate({
-      userId: user.id,
-      content: "Untitled Page",
-    });
-  };
+  const { pageId } = useParams({ strict: false });
 
   const handleLogout = async () => {
     await logout();
@@ -67,22 +58,7 @@ export const AppSideBar = () => {
           <SidebarGroupLabel>My pages</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  className="cursor-pointer"
-                  onClick={handleAddPage}
-                  disabled={createPageMutation.isPending}
-                >
-                  {createPageMutation.isPending ? (
-                    <Loader2 className="animate-spin" />
-                  ) : (
-                    <PlusIconSolid />
-                  )}
-                  <span>
-                    {createPageMutation.isPending ? "Adding..." : "Add page"}
-                  </span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+              <AddPageButton />
 
               {isLoadingPages && (
                 <>
@@ -100,7 +76,19 @@ export const AppSideBar = () => {
               )}
               {pages?.map((page) => (
                 <SidebarMenuItem key={page.id}>
-                  <SidebarMenuButton className="cursor-pointer">
+                  <SidebarMenuButton
+                    className={cn(
+                      "cursor-pointer",
+                      pageId === page.id && // Use pageId from route params
+                        "bg-accent text-accent-foreground"
+                    )}
+                    onClick={() =>
+                      router.navigate({
+                        to: "/app/$pageId",
+                        params: { pageId: page.id },
+                      })
+                    }
+                  >
                     <FileText />
                     <span>
                       {page.content.length > 20
