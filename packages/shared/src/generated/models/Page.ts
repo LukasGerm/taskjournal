@@ -39,6 +39,12 @@ export interface Page {
     userId: string;
     /**
      * 
+     * @type {string}
+     * @memberof Page
+     */
+    title: string;
+    /**
+     * 
      * @type {Date}
      * @memberof Page
      */
@@ -58,6 +64,7 @@ export function instanceOfPage(value: object): value is Page {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('content' in value) || value['content'] === undefined) return false;
     if (!('userId' in value) || value['userId'] === undefined) return false;
+    if (!('title' in value) || value['title'] === undefined) return false;
     return true;
 }
 
@@ -74,6 +81,7 @@ export function PageFromJSONTyped(json: any, ignoreDiscriminator: boolean): Page
         'id': json['id'],
         'content': json['content'],
         'userId': json['userId'],
+        'title': json['title'],
         'createdAt': json['createdAt'] == null ? undefined : (new Date(json['createdAt'])),
         'updatedAt': json['updatedAt'] == null ? undefined : (new Date(json['updatedAt'])),
     };
@@ -93,6 +101,7 @@ export function PageToJSONTyped(value?: Page | null, ignoreDiscriminator: boolea
         'id': value['id'],
         'content': value['content'],
         'userId': value['userId'],
+        'title': value['title'],
         'createdAt': value['createdAt'] == null ? undefined : ((value['createdAt']).toISOString()),
         'updatedAt': value['updatedAt'] == null ? undefined : ((value['updatedAt']).toISOString()),
     };

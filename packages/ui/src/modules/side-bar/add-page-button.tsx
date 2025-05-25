@@ -17,6 +17,7 @@ export const AddPageButton = () => {
       {
         userId: user.id,
         content: "Untitled Page",
+        title: "Untitled Page",
       },
       {
         onSuccess: (newPage) => {

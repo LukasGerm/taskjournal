@@ -23,16 +23,19 @@ pub struct Page {
     pub created_at: Option<String>,
     #[serde(rename = "updatedAt", skip_serializing_if = "Option::is_none")]
     pub updated_at: Option<String>,
+    #[serde(rename = "title")]
+    pub title: String,
 }
 
 impl Page {
-    pub fn new(id: uuid::Uuid, content: String, user_id: uuid::Uuid) -> Page {
+    pub fn new(id: uuid::Uuid, content: String, user_id: uuid::Uuid, title: String) -> Page {
         Page {
             id,
             content,
             user_id,
             created_at: None,
             updated_at: None,
+            title,
         }
     }
 }

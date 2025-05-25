@@ -90,11 +90,7 @@ export const AppSideBar = () => {
                     }
                   >
                     <FileText />
-                    <span>
-                      {page.content.length > 20
-                        ? `${page.content.substring(0, 20)}...`
-                        : page.content}
-                    </span>
+                    <span>{page.title}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

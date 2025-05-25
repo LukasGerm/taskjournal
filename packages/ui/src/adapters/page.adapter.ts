@@ -56,3 +56,11 @@ export const updatePage = async (
 export const deletePage = async (id: string): Promise<void> => {
   await deleteRecordById(TABLE_NAME, id);
 };
+
+// Update a page title by its ID
+export const updatePageTitle = async (
+  id: string,
+  title: string
+): Promise<Page | null> => {
+  return updatePage(id, { title });
+};

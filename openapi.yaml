@@ -38,6 +38,7 @@ components:
         - id
         - content
         - userId
+        - title
       properties:
         id:
           type: string
@@ -53,6 +54,8 @@ components:
         updatedAt:
           type: string
           format: date-time
+        title:
+          type: string
 
     RefreshToken:
       type: object

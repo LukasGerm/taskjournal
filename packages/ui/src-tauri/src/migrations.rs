@@ -15,5 +15,11 @@ pub fn get_migrations() -> Vec<Migration> {
             );",
             kind: MigrationKind::Up,
         },
+        Migration {
+            version: 2,
+            description: "add_title_to_pages_table",
+            sql: "ALTER TABLE pages ADD COLUMN title TEXT DEFAULT 'Untitled' NOT NULL;",
+            kind: MigrationKind::Up,
+        },
     ]
 }
